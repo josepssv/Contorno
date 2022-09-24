@@ -4,4 +4,4 @@ Expresión gráfica o sonora del Yo basado en https://github.com/josepssv/Estrom
 
 Simbólismo, Autorepresentación.
 
-- Interior físico https://josepssv.github.io/Contorno/a/interiorfisico.html
+- Interior físico https://josepssv.github.io/Contorno/a/interiorFisico.html
