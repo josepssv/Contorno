@@ -5,7 +5,7 @@ var floorj = { x: 0, y: 0 };
 var eyesj = { x: 0, y: 220 };
 
 var cameraj = { x: 0, y: 0 };
-var cameraini = { x: 0, y: 0 };
+
 function getJsonPath(d) {
   // https://stackoverflow.com/questions/25886802/svg-path-convert-into-json
   d = d.replace(/\s{2,}/g, " "); // Remove multiple spaces
@@ -263,68 +263,27 @@ function jpath2p5js(tokens) {
   return pen;
 }
 
-var mAnim = 85;
-var tAnim = 8000;
-
-var tf;
-var tfy = 1;
-var tfs = 1;
 function toFace() {
-  if (cameraj.in == "body") {
-    tfy = (cameraj.y + facej.y) / mAnim;
-    tfs = (cameraj.s + facej.s) / mAnim;
-    tf = setInterval(toFacei, tAnim / mAnim);
-  }
-}
-function toFacei() {
-  cameraj.y += tfy;
-  cameraj.s += tfs;
+  cameraj.y += facej.y;
+  cameraj.s += facej.s;
   //console.log(cameraj);
   redraw();
-  if (cameraj.s > facej.s) {
-    clearInterval(tf);
-    //cameraj.y = cameraini.y;
-    //cameraj.s = cameraini.s;
-    cameraj.in = "face";
-  }
+  cameraj.y -= facej.y;
+  cameraj.s -= facej.s;
 }
 
-var tb;
-var tby = 1;
-var tbs = 1;
 function toBody() {
-  if ((cameraj.in = "face")) {
-    tby = abs(cameraj.y - cameraini.y) / mAnim;
-    tbs = abs(cameraj.s - cameraini.s) / mAnim;
-    tb = setInterval(toBodyi, tAnim / mAnim);
-  }
-}
-
-function toBodyi() {
-  console.log(cameraj.s + " " + cameraini.s);
-  cameraj.y -= tfy;
-  cameraj.s -= tfs;
-  //console.log(cameraj);
-
   redraw();
-  if (cameraj.s <= cameraini.s + tfs) {
-    clearInterval(tb);
-    cameraj.y = cameraini.y;
-    cameraj.s = cameraini.s;
-    cameraj.in = "body";
-    redraw();
-  }
 }
 
 function setup() {
   createCanvas(400, 400);
   bodyj = { w: 200, h: 250, x: 0, y: 0, s: 1.7 };
-  facej = { w: 40, h: 50, x: 0, y: 820, s: 4 };
+  facej = { w: 40, h: 50, x: 0, y: 720, s: 3.4 };
   floorj = { x: 0, y: 0 };
   eyesj = { x: 0, y: 220 };
-  cameraini = { x: width / 2, y: height, s: bodyj.s, in: "" };
 
-  cameraj = { x: width / 2, y: height, s: bodyj.s, in: "body" };
+  cameraj = { x: width / 2, y: height, s: bodyj.s };
   faceB = createButton("Face");
   faceB.mousePressed(toFace);
   bodyB = createButton("Body");
@@ -342,7 +301,7 @@ function draw() {
   //scale(ef/4)
   push();
   translate(0, 0);
-  fill(29);
+  fill(50);
   jpath2p5js(jsonpath1);
   pop();
 
