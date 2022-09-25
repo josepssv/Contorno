@@ -4,7 +4,7 @@ var headj = { w: 40, h: 50, x: 0, y: 220, s: 3 };
 var floorj = { x: 0, y: 0 };
 var headj = { x: 0, y: 220 };
 
-var cameraj = { x: 0, y: 0 };
+var cameraj = { x: 0, y: 0, orbit:'' };
 
 function getJsonPath(d) {
   // https://stackoverflow.com/questions/25886802/svg-path-convert-into-json
@@ -267,9 +267,11 @@ function jpath2p5js(tokens) {
 
 function toProfile() {
   jsonpath1 = getJsonPath(pathProfile);
+  cameraj.orbit='profile'
   redraw()
 }
 function toFront() {
+  cameraj.orbit='front'
   jsonpath1 = getJsonPath(path);
   redraw()
 }
@@ -309,7 +311,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(255);
   push();
   translate(cameraj.x, cameraj.y);
   scale(cameraj.s);
@@ -317,8 +319,22 @@ function draw() {
   //scale(ef/4)
   push();
   translate(0, 0);
-  fill(50);
-  jpath2p5js(jsonpath1);
+  var lhair= 25
+  var lpulmon = 20
+  
+  if(cameraj.orbit=='front'){lhair=0;lpulmon=0}
+  drawingContext.filter = 'blur(20px)';
+  noStroke()
+  fill(122)
+  ellipse(0+lhair,-height/2.1,50,60)  
+  drawingContext.filter = 'blur(0px)';
+  fill(220);
+  jpath2p5js(jsonpath1);  
+  
+  drawingContext.filter = 'blur(10px)';
+  fill(244)
+  ellipse(0+lpulmon,-height/3.2,40,40)
+ 
   pop();
 
   pop();
