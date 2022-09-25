@@ -1,8 +1,8 @@
-var faceB, bodyB;
+var headB, bodyB;
 var bodyj = { w: 200, h: 250, x: 0, y: 0, s: 1 };
-var facej = { w: 40, h: 50, x: 0, y: 220, s: 3 };
+var headj = { w: 40, h: 50, x: 0, y: 220, s: 3 };
 var floorj = { x: 0, y: 0 };
-var eyesj = { x: 0, y: 220 };
+var headj = { x: 0, y: 220 };
 
 var cameraj = { x: 0, y: 0 };
 
@@ -274,13 +274,13 @@ function toFront() {
   redraw()
 }
 
-function toFace() {
-  cameraj.y += facej.y;
-  cameraj.s += facej.s;
+function toHead() {
+  cameraj.y += headj.y;
+  cameraj.s += headj.s;
   //console.log(cameraj);
   redraw();
-  cameraj.y -= facej.y;
-  cameraj.s -= facej.s;
+  cameraj.y -= headj.y;
+  cameraj.s -= headj.s;
 }
 
 function toBody() {
@@ -290,13 +290,14 @@ function toBody() {
 function setup() {
   createCanvas(400, 400);
   bodyj = { w: 200, h: 250, x: 0, y: 0, s: 1.7 };
-  facej = { w: 40, h: 50, x: 0, y: 720, s: 3.4 };
+  headj = { w: 40, h: 50, x: 0, y: 680, s: 3.1 };
   floorj = { x: 0, y: 0 };
-  eyesj = { x: 0, y: 220 };
+  //headj = { x: 0, y: 220 };
+  cameraini = { x: width / 2, y: height, s: bodyj.s, in: "", orbit: "front" };
+  cameraj = { x: width / 2, y: height, s: bodyj.s, in: "body", orbit: "front" };
 
-  cameraj = { x: width / 2, y: height, s: bodyj.s };
-  faceB = createButton("Face");
-  faceB.mousePressed(toFace);
+  headB = createButton("head");
+  headB.mousePressed(toHead);
   bodyB = createButton("Body");
   bodyB.mousePressed(toBody);
   frontB = createButton("Front");
